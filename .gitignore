@@ -75,7 +75,6 @@ $RECYCLE.BIN/
 *.sig
 
 pkg/
-src/
 
 
 ### OSX ###

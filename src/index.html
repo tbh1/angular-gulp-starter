@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="mainApp">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <base href="/source"> -->
+
+	<title>Ted's Site</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+	<!-- build:csslibs -->
+	<link rel="stylesheet" href="/bower_components/pure/pure-min.css">
+	<link rel="stylesheet" href="/bower_components/pure/grids-responsive-min.css">
+	<!-- endbuild -->
+
+	<!-- build:css -->
+	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/app-menu.css">
+	<!-- endbuild -->
+
+	<!-- build:libs -->
+	<script src="/bower_components/angular/angular.js"></script>
+	<script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<!-- endbuild -->
+</head>
+
+<body ng-controller="CoreController as vmCore" ng-cloak>
+
+	<app-menu menu-items="vmCore.menuItems" no-buffer="true"></app-menu>
+
+	<div class="app">
+		<div ui-view></div>
+	</div>
+
+
+
+	<div class="footer">
+		<div class="social-media">
+			<a href="http://www.facebook.com/">
+				<i class="fa fa-facebook facebook"></i>
+			</a>
+			<a href="http://www.twitter.com/">
+				<i class="fa fa-twitter twitter"></i>
+			</a>
+			<a href="http://www.linkedin.com/">
+				<i class="fa fa-linkedin linkedin"></i>
+			</a>
+			<a href="http://www.github.com/toxicblu">
+				<i class="fa fa-github github"></i>
+			</a>
+		</div>
+		<div class="copyright" style="text-align: center;">
+			&copy; Ted Hunter {{vmCore.copyrightDate}} &middot; Some Rights Reserved
+		</div>
+	</div>
+	<!-- build:js -->
+	<!-- Application -->
+	<script src="app.js"></script>
+
+	<!-- Services -->
+
+	<!-- Controllers -->
+	<script src="core/core.controller.js"></script>
+	<script src="components/home/home.controller.js"></script>
+
+	<!-- Directives -->
+	<script src="shared/menu/app-menu.directive.js"></script>
+	<script src="shared/scroll/on-scroll.directive.js"></script>
+	<!-- endbuild -->
+</body>
+
+</html>
