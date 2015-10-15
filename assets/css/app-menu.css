@@ -1,0 +1,100 @@
+.app-menu-wrapper {
+    min-height: 66px;
+    position: fixed;
+    width:100%;
+    background-color: #333333;
+    margin-bottom: 1em;
+    -webkit-font-smoothing: antialiased;
+    height: 2.1em;
+    overflow: hidden;
+    opacity: .975;
+    -webkit-transition: height 0.5s;
+    -moz-transition: height 0.5s;
+    -ms-transition: height 0.5s;
+    transition: height 0.5s;
+}
+
+.app-menu-wrapper.open {
+    height: 12.8em;
+}
+
+.app-menu-brand {
+    width: 55px;
+}
+
+.app-menu-brand,
+.app-menu-item.open {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+
+.app-menu-right {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.app-menu-toggle {
+    width: 34px;
+    height: 34px;
+    display: block;
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    display: none;
+}
+
+.app-menu-toggle .bar {
+    background-color: #777;
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 100px;
+    position: absolute;
+    top: 18px;
+    right: 7px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.app-menu-toggle .bar:first-child {
+    -webkit-transform: translateY(-6px);
+    -moz-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+    transform: translateY(-6px);
+}
+
+.app-menu-toggle.x .bar {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.app-menu-toggle.x .bar:first-child {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+@media (max-width: 47.999em) {
+
+    .app-menu-right {
+        text-align: left;
+        padding-left: 10px;
+        border-top: 1px solid #252525;
+        background-color: #444
+    }
+
+    .app-menu-toggle {
+        display: block;
+    }
+
+}
+
+#app-menu-spacer {
+    padding-bottom: 66px;
+    /*background-color: #333333;*/
+}
