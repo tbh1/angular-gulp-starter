@@ -22,7 +22,7 @@ gulp.task('lint', function() {
 gulp.task('build:js', ['lint'], function() {
     return gulp.src('src/**/*.js')
         .pipe(plugins.ngAnnotate())
-        .pipe(plugins.concat('sharkgoose.js', {
+        .pipe(plugins.concat('app.js', {
             newLine: '\n'
         }))
         .pipe(plugins.uglify())
@@ -33,7 +33,7 @@ gulp.task('build:js', ['lint'], function() {
         '*  All rights reserved'            + '\n' +
         '*/\n'))
         .pipe(gulp.dest('dist'))
-        .pipe(reload({stream: true}));
+        .pipe(sync.reload({stream: true}));
 });
 
 gulp.task('build:js_deps', function() {
@@ -49,7 +49,7 @@ gulp.task('build:js_deps', function() {
 
 gulp.task('build:css', function() {
     return gulp.src(['assets/**/*.css', 'src/**/*.css'])
-        .pipe(plugins.concatCss('sharkgoose.css'))
+        .pipe(plugins.concatCss('app.css'))
         .pipe(plugins.minifyCss())
         .pipe(gulp.dest('dist'));
 });
@@ -67,15 +67,16 @@ gulp.task('build:css_deps', function() {
 gulp.task('build:html', function() {
     return gulp.src('src/**/*.html')
         .pipe(plugins.htmlReplace({
-            js: 'sharkgoose.js',
+            js: 'app.js',
             libs: 'deps.js',
-            css: 'sharkgoose.css',
+            css: 'app.css',
             csslibs: 'deps.css'
         }))
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('build', [
+    'lint',
     'build:js',
     'build:js_deps',
     'build:css',
@@ -96,8 +97,10 @@ gulp.task('test', function (done) {
 /* Development */
 gulp.task('nodemon:dev', ['lint'], function() {
     plugins.nodemon({
+        verbose: true,
         script: 'index.js',
         ext: 'js html css',
+        ignore: ['dist/*'],
         env: {
           'NODE_ENV': 'development',
           'PORT': 3030
@@ -108,13 +111,15 @@ gulp.task('nodemon:dev', ['lint'], function() {
 
 gulp.task('nodemon:prod', ['build'], function() {
     plugins.nodemon({
+        verbose: true,
         script: 'index.js',
         ext: 'js html css',
+        ignore: ['dist/*'],
         env: {
           'NODE_ENV': 'production',
           'PORT': 3030
         },
-        tasks: ['lint', 'build']
+        tasks: ['lint', 'build'],
     });
 });
 
@@ -122,22 +127,16 @@ gulp.task('serve:dev', ['nodemon:dev'], function () {
   sync.init({
     proxy: 'localhost:3030'
   });
-  gulp.watch('./src/*.html', ['build:html'], function() {
-    console.log('html changed');
-    sync.reload()
-  });
+  gulp.watch('./src/*.html', ['build:html'], sync.reload);
   gulp.watch('./assets/css/**/*.css', sync.reload);
   gulp.watch('./src/**/*.js', ['lint'], sync.reload);
 });
 
-gulp.task('serve:prod', ['clean', 'lint', 'build', 'nodemon:prod'], function () {
-  browserSync.init({
+gulp.task('serve:prod', ['nodemon:prod'], function () {
+  sync.init({
     proxy: 'localhost:3030'
   });
-  gulp.watch('./src/**/*.html', ['build:html'], function() {
-    console.log('html changed');
-    sync.reload()
-  });
+  gulp.watch('./src/**/*.html', ['build:html'], sync.reload);
   gulp.watch('./assets/css/**/*.css', ['build:css'], sync.reload);
   gulp.watch('./src/**/*.js', ['lint', 'build:js']);
 });
